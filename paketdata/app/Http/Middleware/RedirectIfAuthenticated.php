@@ -23,6 +23,9 @@ class RedirectIfAuthenticated
             if (Auth::guard($guard)->check()) {
                 return redirect('/admin');
             }
+            if(Auth::guard('pelanggan')->check()) {
+                return redirect('/user');
+            }
         }
 
         return $next($request);

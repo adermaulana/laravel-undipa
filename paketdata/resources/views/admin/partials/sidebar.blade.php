@@ -9,6 +9,48 @@
             <div class="sidebar">
 
                 <!-- Sidebar Menu -->
+                @auth('pelanggan')
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="image">
+                            <img src="dindo" class="img-circle elevation-2" alt="User Image"/>
+                        </div>
+                        <div class="info">
+                            <a href="#" class="d-block">{{ auth('pelanggan')->user()->namalengkap_user }}</a>
+                        </div>
+                    </div>
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/user">
+                                <i class="nav-icon fas fa-home"></i>
+                                <p>Dashboard</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                                <a class="nav-link" href="/user/menu">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>Menu</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/user/pembayaran">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>Pembayaran</p>
+                                </a>
+                            </li>
+                        <li class="nav-item">
+                            <form action="/keluar" method="post">
+                                @csrf
+                                <button class="nav-link" type="submit">
+                                    Logout
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+                @else
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
@@ -62,6 +104,7 @@
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
+                @endauth
             </div>
             <!-- /.sidebar -->
         </aside>

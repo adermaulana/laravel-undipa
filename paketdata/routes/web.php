@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserMenuController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminProdukController;
 use App\Http\Controllers\AdminCategoryController;
@@ -27,8 +28,12 @@ Route::get('/admin',function(){
     return view('admin.index');
 })->middleware('auth');
 
+Route::get('/user',function(){
+    return view('user.index');
+})->middleware('auth:pelanggan');
 
-//Kategori
+
+//AdminKategori
 Route::get('admin/kategori',[AdminCategoryController::class,'index'])->middleware('auth');;
 Route::get('admin/kategori/tambah',[AdminCategoryController::class,'tambah'])->middleware('auth');;
 Route::post('admin/kategori/tambah',[AdminCategoryController::class,'store']);
@@ -36,7 +41,7 @@ Route::get('admin/kategori/edit/{id}',[AdminCategoryController::class,'edit'])->
 Route::put('admin/kategori/edit/{id}',[AdminCategoryController::class,'update']);
 Route::delete('admin/kategori/delete/{id}',[AdminCategoryController::class,'destroy']);
 
-//Produk
+//AdminProduk
 Route::get('admin/produk',[AdminProdukController::class,'index'])->middleware('auth');;
 Route::get('admin/produk/tambah',[AdminProdukController::class,'tambah'])->middleware('auth');;
 Route::post('admin/produk/tambah',[AdminProdukController::class,'store']);
@@ -44,17 +49,22 @@ Route::get('admin/produk/edit/{id}',[AdminProdukController::class,'edit'])->midd
 Route::put('admin/produk/edit/{id}',[AdminProdukController::class,'update']);
 Route::delete('admin/produk/delete/{id}',[AdminProdukController::class,'destroy']);
 
-//Pembayaran
+//AdminPembayaran
 Route::get('admin/pembayaran',[AdminPembayaranController::class,'index'])->middleware('auth');;
 Route::put('admin/pembayaran/konfirmasi/{id}',[AdminPembayaranController::class,'konfirmasi']);
 
-//Pembelian
-Route::get('admin/pembelian',[AdminPembelianController::class,'index'])->middleware('auth');;
+//AdminPembelian
+Route::get('admin/pembelian',[AdminPembelianController::class,'index'])->middleware('auth');
 
-//User
-Route::get('admin/user',[AdminUserController::class,'index'])->middleware('auth');;
+//AdminUser
+Route::get('admin/user',[AdminUserController::class,'index'])->middleware('auth');
 Route::delete('admin/user/delete/{id}',[AdminUserController::class,'destroy']);
+
+//UserMenu
+Route::get('user/menu',[UserMenuController::class,'index'])->middleware('auth:pelanggan');
+
 
 //Login
 Route::post('/login', [LoginController::class,'authenticate']);
 Route::post('/logout',[LoginController::class,'logout']);
+Route::post('/keluar',[LoginController::class,'keluar']);

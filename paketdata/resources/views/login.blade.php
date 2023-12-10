@@ -28,7 +28,7 @@
       <form action="/login" method="post">
         @csrf
         <div class="input-group mb-3">
-          <input type="text" name ="username_admin" 
+          <input type="text" name ="username" 
           oninvalid="setCustomValidity('Isi minimal 5 karakter')"oninput="setCustomValidity('')" 
           required class="form-control" placeholder="Username" maxlength="20" minlength="5">
           <div class="input-group-append">

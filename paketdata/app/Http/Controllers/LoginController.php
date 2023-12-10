@@ -13,15 +13,20 @@ class LoginController extends Controller
 
 
         $credentials = $request->validate([
-            'username_admin' => 'required',
+            'username' => 'required',
             'password' => 'required'
         ]);
 
-        if(Auth::attempt($credentials)){
+        if(Auth::guard('web')->attempt($credentials)){
             
             $request->session()->regenerate();
             
             return redirect()->intended('/admin');
+        
+        } else if (Auth::guard('pelanggan')->attempt($credentials)){
+            $request->session()->regenerate();
+
+            return redirect()->intended('/user');
         
         }
 
@@ -36,6 +41,18 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/login');
+        
+
+    }
+
+    public function keluar(Request $request){
+        if(Auth::logout());
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
+        
 
     }
 }
