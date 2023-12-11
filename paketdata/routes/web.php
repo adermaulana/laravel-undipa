@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminProdukController;
 use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\AdminPembelianController;
+use App\Http\Controllers\UserPembayaranController;
 use App\Http\Controllers\AdminPembayaranController;
 
 /*
@@ -19,6 +20,10 @@ use App\Http\Controllers\AdminPembayaranController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/', function () {
+    return view('index');
+})->middleware('guest');
 
 Route::get('/login', function () {
     return view('login');
@@ -63,6 +68,8 @@ Route::delete('admin/user/delete/{id}',[AdminUserController::class,'destroy']);
 //UserMenu
 Route::get('user/menu',[UserMenuController::class,'index'])->middleware('auth:pelanggan');
 
+//UserPembayaran
+Route::get('user/pembayaran',[UserPembayaranController::class,'index'])->middleware('auth:pelanggan');
 
 //Login
 Route::post('/login', [LoginController::class,'authenticate']);
